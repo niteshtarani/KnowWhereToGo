@@ -1,0 +1,43 @@
+version: "1"
+
+secrets:
+  - name: TAP_API_TOKEN
+    key: sanchitmehta/TAP_API_TOKEN
+    engine: native
+    type: org
+  - name: vault_username
+    key: sanchitmehta/vault_username
+    engine: native
+    type: org
+  - name: vault_password
+    key: sanchitmehta/vault_password
+    engine: native
+    type: org
+  - name: docker_username
+    key: sanchitmehta/docker_username
+    engine: native
+    type: org
+  - name: docker_password
+    key: sanchitmehta/docker_password
+    engine: native
+    type: org
+
+steps:
+  - name: populate_docker_credentials
+    image: docker.target.com/managed/vela-plugins/artifactory-managed-auth:v1.4.0@sha256:4396697f30b3e6e42255350f19cbd95d0db8452b118e6fd444f2b7e3929b1a1f
+    parameters:
+      auth_server: https://artifactorytokenmanager.prod.target.com
+
+  - name: docker_build_and_publish
+    image: docker.target.com/vela-plugins/kaniko:v0.16.0-1
+    ruleset:
+      branch: [master]
+      event: push
+    pull: always
+    parameters:
+      log_level: trace
+      dockerfile: Dockerfile
+      registry: docker.target.com
+      repo: docker.target.com/managed/sanchitmehta/knowweheretogo
+      tags:
+        - "b${VELA_BUILD_NUMBER}-${VELA_BUILD_COMMIT:0:8}"
