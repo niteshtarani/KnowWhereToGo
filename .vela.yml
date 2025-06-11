@@ -1,10 +1,6 @@
 version: "1"
 
 secrets:
-  - name: TAP_API_TOKEN
-    key: sanchitmehta/TAP_API_TOKEN
-    engine: native
-    type: org
   - name: vault_username
     key: sanchitmehta/vault_username
     engine: native
