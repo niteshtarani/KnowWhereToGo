@@ -1,5 +1,5 @@
 # Use a multi-stage build to reduce the final image size
-FROM openjdk:17-alpine
+FROM eclipse-temurin:17-jre-jammy as builder
 WORKDIR /app
 COPY . /app
 RUN ./gradlew shadowJar
