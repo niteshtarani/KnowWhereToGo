@@ -8,4 +8,4 @@ RUN chmod +x gradlew
 RUN ./gradlew shadowJar --no-daemon
 RUN find . -name "*.jar" -type f
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/default-0.1-all.jar"]
+ENTRYPOINT ["java", "-jar", "default-0.1-all.jar"]
