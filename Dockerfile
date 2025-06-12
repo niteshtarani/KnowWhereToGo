@@ -2,11 +2,12 @@
 FROM eclipse-temurin:17-jre-jammy as builder
 WORKDIR /app
 COPY . /app
-RUN ./gradlew shadowJar
+RUN chmod +x ./gradlew
+RUN ./gradlew shadowJar --no-daemon
 
 # Create the final image
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar default-0.1-all.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/default-0.1-all.jar"]
+ENTRYPOINT ["java", "-jar", "/app/default-0.1-all.jar"]
