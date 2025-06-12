@@ -45,7 +45,6 @@ class SlackMessageProcessor(
   }
 
   private suspend fun processMessage(event: JsonNode) {
-    val user = event["user"]?.asText()
     val channel = event["channel"]?.asText()
     val text = event["text"]?.asText()
 
