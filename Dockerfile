@@ -1,8 +1,8 @@
 # Use a multi-stage build to reduce the final image size
-FROM eclipse-temurin:17-jre-jammy as builder
+FROM eclipse-temurin:17-jdk-jammy AS builder
 WORKDIR /app
 COPY . /app
-RUN chmod +x ./gradlew
+RUN chmod +x gradlew
 RUN ./gradlew shadowJar --no-daemon
 
 # Create the final image
