@@ -147,7 +147,10 @@ class SlackMessageProcessor(
 
     val contents = ragContext?.documents?.joinToString("\n") { it.content } ?: ""
     val messages = listOf(
-      Message("system", "The following is context pulled from a RAG system that may be needed to address the user's question: $contents"),
+      Message(
+        "system",
+        "The following is context pulled from a RAG system that may be needed to address the user's question: $contents"
+      ),
       Message("user", query)
     )
 
@@ -183,5 +186,4 @@ class SlackMessageProcessor(
       return null
     }
   }
-
 }
